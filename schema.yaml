@@ -1,0 +1,117 @@
+openapi: 3.1.0
+info:
+  title: 입찰 데이터 API
+  description: Bidding Data Final 서비스에서 입찰 정보를 조회하는 API입니다. XML 형식의 응답을 반환합니다.
+  version: 1.0.0
+servers:
+  - url: https://bidding-data-final.vercel.app
+    description: 운영 서버
+paths:
+  /bidding:
+    get:
+      operationId: getBiddingData
+      summary: 입찰 데이터 조회
+      description: 서비스 키, 조회 구분, 페이지 정보를 기반으로 XML 형식의 입찰 데이터를 조회합니다.
+      parameters:
+        - name: serviceKey
+          in: query
+          required: true
+          description: API 서비스 키 (URL 인코딩된 문자열)
+          schema:
+            type: string
+        - name: inqryDiv
+          in: query
+          required: true
+          description: 조회 구분 코드
+          schema:
+            type: string
+        - name: pageNo
+          in: query
+          required: false
+          description: 페이지 번호
+          schema:
+            type: integer
+            default: 1
+        - name: numOfRows
+          in: query
+          required: false
+          description: 한 페이지당 결과 수
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: 입찰 데이터를 성공적으로 반환 (XML)
+          content:
+            application/xml:
+              schema:
+                type: object
+                xml:
+                  name: response
+                properties:
+                  header:
+                    type: object
+                    xml:
+                      name: header
+                    properties:
+                      resultCode:
+                        type: string
+                      resultMsg:
+                        type: string
+                  body:
+                    type: object
+                    xml:
+                      name: body
+                    properties:
+                      items:
+                        type: object
+                        xml:
+                          name: items
+                        properties:
+                          item:
+                            type: array
+                            xml:
+                              name: item
+                              wrapped: true
+                            items:
+                              type: object
+                              xml:
+                                name: item
+                              # 이곳에 전체 필드 정의 (생략 가능, 앞서 제공한 전체 필드 목록 그대로 사용)
+
+        '400':
+          description: 잘못된 요청 - 파라미터 오류 등
+          content:
+            application/xml:
+              schema:
+                type: object
+                xml:
+                  name: error
+                properties:
+                  message:
+                    type: string
+                    example: 잘못된 요청입니다.
+        '401':
+          description: 인증 실패 - 유효하지 않은 서비스 키
+          content:
+            application/xml:
+              schema:
+                type: object
+                xml:
+                  name: error
+                properties:
+                  message:
+                    type: string
+                    example: 인증에 실패했습니다.
+        '500':
+          description: 서버 내부 오류
+          content:
+            application/xml:
+              schema:
+                type: object
+                xml:
+                  name: error
+                properties:
+                  message:
+                    type: string
+                    example: 서버 오류가 발생했습니다.
