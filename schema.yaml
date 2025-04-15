@@ -1,0 +1,255 @@
+openapi: 3.1.0
+info:
+  title: 입찰 데이터 API
+  description: Bidding Data Final 서비스에서 입찰 정보를 조회하는 API입니다. XML 형식의 응답을 반환합니다.
+  version: 1.0.0
+servers:
+  - url: https://bidding-data-final.vercel.app
+    description: 운영 서버
+paths:
+  /bidding:
+    get:
+      operationId: getBiddingData
+      summary: 입찰 데이터 조회
+      description: 서비스 키, 조회 구분, 페이지 정보를 기반으로 XML 형식의 입찰 데이터를 조회합니다.
+      parameters:
+        - name: serviceKey
+          in: query
+          required: true
+          description: API 서비스 키 (URL 인코딩된 문자열)
+          schema:
+            type: string
+        - name: inqryDiv
+          in: query
+          required: true
+          description: 조회 구분 코드
+          schema:
+            type: string
+        - name: pageNo
+          in: query
+          required: false
+          description: 페이지 번호
+          schema:
+            type: integer
+            default: 1
+        - name: numOfRows
+          in: query
+          required: false
+          description: 한 페이지당 결과 수
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: 입찰 데이터를 성공적으로 반환 (XML)
+          content:
+            application/xml:
+              schema:
+                type: object
+                xml:
+                  name: response
+                properties:
+                  header:
+                    type: object
+                    xml:
+                      name: header
+                    properties:
+                      resultCode:
+                        type: string
+                      resultMsg:
+                        type: string
+                  body:
+                    type: object
+                    xml:
+                      name: body
+                    properties:
+                      items:
+                        type: object
+                        xml:
+                          name: items
+                        properties:
+                          item:
+                            type: array
+                            xml:
+                              name: item
+                              wrapped: true
+                            items:
+                              type: object
+                              xml:
+                                name: item
+                              properties:
+                                bidNtceNo: { type: string }
+                                bidNtceOrd: { type: string }
+                                reNtceYn: { type: string }
+                                rgstTyNm: { type: string }
+                                ntceKindNm: { type: string }
+                                intrbidYn: { type: string }
+                                bidNtceDt: { type: string }
+                                refNo: { type: string }
+                                bidNtceNm: { type: string }
+                                ntceInsttCd: { type: string }
+                                ntceInsttNm: { type: string }
+                                dminsttCd: { type: string }
+                                dminsttNm: { type: string }
+                                bidMethdNm: { type: string }
+                                cntrctCnclsMthdNm: { type: string }
+                                ntceInsttOfclNm: { type: string }
+                                ntceInsttOfclTelNo: { type: string }
+                                ntceInsttOfclEmailAdrs: { type: string }
+                                exctvNm: { type: string }
+                                bidQlfctRgstDt: { type: string }
+                                cmmnSpldmdAgrmntRcptdocMethd: { type: string }
+                                cmmnSpldmdAgrmntClseDt: { type: string }
+                                cmmnSpldmdCorpRgnLmtYn: { type: string }
+                                bidBeginDt: { type: string }
+                                bidClseDt: { type: string }
+                                opengDt: { type: string }
+                                ntceSpecDocUrl1: { type: string }
+                                ntceSpecDocUrl2: { type: string }
+                                ntceSpecDocUrl3: { type: string }
+                                ntceSpecDocUrl4: { type: string }
+                                ntceSpecDocUrl5: { type: string }
+                                ntceSpecDocUrl6: { type: string }
+                                ntceSpecDocUrl7: { type: string }
+                                ntceSpecDocUrl8: { type: string }
+                                ntceSpecDocUrl9: { type: string }
+                                ntceSpecDocUrl10: { type: string }
+                                ntceSpecFileNm1: { type: string }
+                                ntceSpecFileNm2: { type: string }
+                                ntceSpecFileNm3: { type: string }
+                                ntceSpecFileNm4: { type: string }
+                                ntceSpecFileNm5: { type: string }
+                                ntceSpecFileNm6: { type: string }
+                                ntceSpecFileNm7: { type: string }
+                                ntceSpecFileNm8: { type: string }
+                                ntceSpecFileNm9: { type: string }
+                                ntceSpecFileNm10: { type: string }
+                                rbidPermsnYn: { type: string }
+                                pqApplDocRcptMthdNm: { type: string }
+                                pqApplDocRcptDt: { type: string }
+                                arsltApplDocRcptMthdNm: { type: string }
+                                arsltApplDocRcptDt: { type: string }
+                                jntcontrctDutyRgnNm1: { type: string }
+                                jntcontrctDutyRgnNm2: { type: string }
+                                jntcontrctDutyRgnNm3: { type: string }
+                                rgnDutyJntcontrctRt: { type: string }
+                                dtlsBidYn: { type: string }
+                                bidPrtcptLmtYn: { type: string }
+                                prearngPrceDcsnMthdNm: { type: string }
+                                totPrdprcNum: { type: integer }
+                                drwtPrdprcNum: { type: integer }
+                                bdgtAmt: { type: number }
+                                presmptPrce: { type: number }
+                                govsplyAmt: { type: number }
+                                aplBssCntnts: { type: string }
+                                indstrytyEvlRt: { type: string }
+                                mainCnsttyNm: { type: string }
+                                mainCnsttyCnstwkPrearngAmt: { type: string }
+                                incntvRgnNm1: { type: string }
+                                incntvRgnNm2: { type: string }
+                                incntvRgnNm3: { type: string }
+                                incntvRgnNm4: { type: string }
+                                opengPlce: { type: string }
+                                dcmtgOprtnDt: { type: string }
+                                dcmtgOprtnPlce: { type: string }
+                                contrctrcnstrtnGovsplyMtrlAmt: { type: number }
+                                govcnstrtnGovsplyMtrlAmt: { type: number }
+                                bidNtceDtlUrl: { type: string }
+                                bidNtceUrl: { type: string }
+                                bidPrtcptFeePaymntYn: { type: string }
+                                bidPrtcptFee: { type: string }
+                                bidGrntymnyPaymntYn: { type: string }
+                                crdtrNm: { type: string }
+                                cmmnSpldmdCnum: { type: string }
+                                untyNtceNo: { type: string }
+                                sptDscrptDocUrl1: { type: string }
+                                sptDscrptDocUrl2: { type: string }
+                                sptDscrptDocUrl3: { type: string }
+                                sptDscrptDocUrl4: { type: string }
+                                sptDscrptDocUrl5: { type: string }
+                                subsiCnsttyNm1: { type: string }
+                                subsiCnsttyNm2: { type: string }
+                                subsiCnsttyNm3: { type: string }
+                                subsiCnsttyNm4: { type: string }
+                                subsiCnsttyNm5: { type: string }
+                                subsiCnsttyNm6: { type: string }
+                                subsiCnsttyNm7: { type: string }
+                                subsiCnsttyNm8: { type: string }
+                                subsiCnsttyNm9: { type: string }
+                                subsiCnsttyIndstrytyEvlRt1: { type: string }
+                                subsiCnsttyIndstrytyEvlRt2: { type: string }
+                                subsiCnsttyIndstrytyEvlRt3: { type: string }
+                                subsiCnsttyIndstrytyEvlRt4: { type: string }
+                                subsiCnsttyIndstrytyEvlRt5: { type: string }
+                                subsiCnsttyIndstrytyEvlRt6: { type: string }
+                                subsiCnsttyIndstrytyEvlRt7: { type: string }
+                                subsiCnsttyIndstrytyEvlRt8: { type: string }
+                                subsiCnsttyIndstrytyEvlRt9: { type: string }
+                                cmmnSpldmdMethdCd: { type: string }
+                                cmmnSpldmdMethdNm: { type: string }
+                                stdNtceDocUrl: { type: string }
+                                brffcBidprcPermsnYn: { type: string }
+                                cnsttyAccotShreRateList: { type: string }
+                                cnstrtnAbltyEvlAmtList: { type: string }
+                                dsgntCmptYn: { type: string }
+                                arsltCmptYn: { type: string }
+                                pqEvalYn: { type: string }
+                                ntceDscrptYn: { type: string }
+                                rsrvtnPrceReMkngMthdNm: { type: string }
+                                mainCnsttyPresmptPrce: { type: string }
+                                orderPlanUntyNo: { type: string }
+                                sucsfbidLwltRate: { type: number }
+                                rgstDt: { type: string }
+                                bfSpecRgstNo: { type: string }
+                                sucsfbidMthdCd: { type: string }
+                                sucsfbidMthdNm: { type: string }
+                                chgDt: { type: string }
+                                dminsttOfclEmailAdrs: { type: string }
+                                indstrytyLmtYn: { type: string }
+                                cnstrtsiteRgnNm: { type: string }
+                                rgnDutyJntcontrctYn: { type: string }
+                                chgNtceRsn: { type: string }
+                                rbidOpengDt: { type: string }
+                                ciblAplYn: { type: string }
+                                mtltyAdvcPsblYn: { type: string }
+                                mtltyAdvcPsblYnCnstwkNm: { type: string }
+                                VAT: { type: number }
+                                indutyVAT: { type: string }
+                                indstrytyMfrcFldEvlYn: { type: string }
+                                bidWgrnteeRcptClseDt: { type: string }
+        '400':
+          description: 잘못된 요청 - 파라미터 오류 등
+          content:
+            application/xml:
+              schema:
+                type: object
+                xml:
+                  name: error
+                properties:
+                  message:
+                    type: string
+                    example: 잘못된 요청입니다.
+        '401':
+          description: 인증 실패 - 유효하지 않은 서비스 키
+          content:
+            application/xml:
+              schema:
+                type: object
+                xml:
+                  name: error
+                properties:
+                  message:
+                    type: string
+                    example: 인증에 실패했습니다.
+        '500':
+          description: 서버 내부 오류
+          content:
+            application/xml:
+              schema:
+                type: object
+                xml:
+                  name: error
+                properties:
+                  message:
+                    type: string
+                    example: 서버 오류가 발생했습니다.

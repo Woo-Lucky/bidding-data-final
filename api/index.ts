@@ -2,8 +2,8 @@ var express = require("express");
 var app = express();
 
 app.get("/bidding", function (req: any, res: any) {
-  //const { serviceKey, numOfRows, pageNo, inqryBgnDt, inqryEndDt, inqryDiv, bidNtceNm} =
-  const { serviceKey, numOfRows, pageNo, inqryDiv, bidNtceNm} =  
+  const { serviceKey, numOfRows, pageNo, inqryBgnDt, inqryEndDt, inqryDiv, bidNtceNm} =
+  //const { serviceKey, numOfRows, pageNo, inqryDiv, bidNtceNm} =  
     req.query;
 
   var api_url =
@@ -11,8 +11,8 @@ app.get("/bidding", function (req: any, res: any) {
   var request = require("request");
   var options = {
     url: api_url,
-    //qs: { serviceKey, numOfRows, pageNo, inqryBgnDt, inqryEndDt, inqryDiv, bidNtceNm},
-    qs: { serviceKey, numOfRows, pageNo, inqryDiv, bidNtceNm},
+    qs: { serviceKey, numOfRows, pageNo, inqryBgnDt, inqryEndDt, inqryDiv, bidNtceNm},
+    //qs: { serviceKey, numOfRows, pageNo, inqryDiv, bidNtceNm},
   };
 
   request.get(options, function (error: any, response: any, body: any) {
