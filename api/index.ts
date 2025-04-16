@@ -1,5 +1,3 @@
-import { gzip } from "zlib";
-
 var express = require("express");
 var app = express();
 
