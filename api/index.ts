@@ -14,7 +14,10 @@ app.get("/bidding", function (req: any, res: any) {
   var options = {
     url: api_url,
     qs: { serviceKey, numOfRows, pageNo, inqryBgnDt, inqryEndDt, inqryDiv, bidNtceNm},
-    gzip: true
+    gzip: true,
+    Headers: {
+      "Accept-Encoding": "identity",
+    },
     //qs: { serviceKey, numOfRows, pageNo, inqryDiv, bidNtceNm},
   };
 
