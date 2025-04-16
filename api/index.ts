@@ -1,3 +1,5 @@
+import { gzip } from "zlib";
+
 var express = require("express");
 var app = express();
 
@@ -12,6 +14,7 @@ app.get("/bidding", function (req: any, res: any) {
   var options = {
     url: api_url,
     qs: { serviceKey, numOfRows, pageNo, inqryBgnDt, inqryEndDt, inqryDiv, bidNtceNm},
+    gzip: true
     //qs: { serviceKey, numOfRows, pageNo, inqryDiv, bidNtceNm},
   };
 
